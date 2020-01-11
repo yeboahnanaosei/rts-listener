@@ -3,11 +3,11 @@
 clear
 
 function push() {
-    echo "Executing git push command"
+    printf "\nExecuting git push command\n"
     git push
 }
 
-echo -e "\e[34mPreparing...\e[0m"
+printf "\e[34mPreparing...\e[0m\n"
 
 OUTPUT_FOLDER="./bin/"
 
@@ -16,12 +16,12 @@ if [[ ! -d "$OUTPUT_FOLDER" ]]; then
     mkdir "$OUTPUT_FOLDER"
 fi
 
-echo -e "\e[93mBuilding...\e[0m"
+printf "\e[34mBuilding...\e[0m\n"
 
 go build -o "$OUTPUT_FOLDER/listener" 2> /tmp/rts.error
 
 if [ $? -eq 0 ]; then
-    echo -e "\e[1;32mDone\e[0m"
+    printf "\e[1;32mDone\e[0m\n"
 
     # If the main go build process exits successfully
     # we go ahead to execute the sub command
@@ -35,7 +35,6 @@ if [ $? -eq 0 ]; then
     fi
 else
     ERROR_MSG=$(< /tmp/rts.error)
-    echo
-    echo -e "\e[4;31mSorry! Build process failed:\e[0m"
-    echo -e "\e[31m$ERROR_MSG\e[0m"
+    printf "\n\e[1;4;31mFAILED:\e[0m\n"
+    printf "\e[31m$ERROR_MSG\e[0m\n"
 fi
