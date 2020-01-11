@@ -29,9 +29,7 @@ if [ $? -eq 0 ]; then
     if [[ -n "$1" ]]; then
         case $1 in
             push)
-            echo
-            echo "Executing git push command"
-            git push
+            push
             ;;
         esac
     fi
