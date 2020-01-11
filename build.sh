@@ -2,6 +2,11 @@
 
 clear
 
+function push() {
+    echo "Executing git push command"
+    git push
+}
+
 echo -e "\e[34mPreparing...\e[0m"
 
 OUTPUT_FOLDER="./bin/"
@@ -17,6 +22,19 @@ go build -o "$OUTPUT_FOLDER/listener" 2> /tmp/rts.error
 
 if [ $? -eq 0 ]; then
     echo -e "\e[1;32mDone\e[0m"
+
+    # If the main go build process exits successfully
+    # we go ahead to execute the sub command
+    SUB_COMMAND=$1
+    if [[ -n "$1" ]]; then
+        case $1 in
+            push)
+            echo
+            echo "Executing git push command"
+            git push
+            ;;
+        esac
+    fi
 else
     ERROR_MSG=$(< /tmp/rts.error)
     echo
